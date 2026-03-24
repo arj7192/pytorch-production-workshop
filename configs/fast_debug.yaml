@@ -1,0 +1,33 @@
+# Fast debug config — use this to verify everything works
+# Trains for 1 epoch with small batch size, logs every 10 steps
+# Usage: python -m src.train --config configs/fast_debug.yaml
+
+vocab_size: 4096
+d_model: 128
+n_heads: 4
+d_ff: 256
+n_layers: 2
+max_seq_len: 64
+dropout: 0.1
+
+epochs: 1
+batch_size: 32
+learning_rate: 5.0e-4
+weight_decay: 0.01
+warmup_steps: 20
+max_grad_norm: 1.0
+seed: 42
+
+num_workers: 0
+pin_memory: false
+use_amp: false
+
+checkpoint_dir: checkpoints_debug
+save_every_n_epochs: 1
+keep_last_n: 1
+
+log_interval: 10
+eval_interval: 50
+log_dir: logs_debug
+
+device: auto

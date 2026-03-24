@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Training artifacts
+checkpoints/
+checkpoints_debug/
+logs/
+logs_debug/
+exports/
+tokenizer.json
+
+# Model files
+*.pt
+*.pth
+*.onnx
+
+# Data
+data/
+
+# Serve artifacts
+serve/tokenizer.json
+serve/model_checkpoint.pt
+
+# Profiler
+logs/profiler/

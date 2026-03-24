@@ -1,0 +1,28 @@
+# Core
+torch>=2.2.0
+torchvision>=0.17.0
+
+# Data
+datasets>=2.16.0
+tokenizers>=0.15.0
+
+# Config
+pyyaml>=6.0
+
+# Serving
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.0.0
+requests>=2.31.0
+
+# Export & Inference
+onnx>=1.15.0
+onnxruntime>=1.17.0
+
+# Notebooks
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+ipywidgets>=8.0.0
+
+# Dev
+numpy>=1.24.0
