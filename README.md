@@ -25,10 +25,10 @@ The fastest way to get started. No local install required — just a Google acco
 
 | Module | Colab link |
 |--------|-----------|
-| **01 — Model + Training** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/01_model_and_training.ipynb) |
-| **02 — Speedups + Stability** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/02_training_speedups.ipynb) |
-| **03 — Inference + Export** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/03_inference_and_export.ipynb) |
-| **04 — Deploy** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/04_deploy.ipynb) |
+| **01 — Model + Training** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/01_model_and_training.ipynb) |
+| **02 — Speedups + Stability** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/02_training_speedups.ipynb) |
+| **03 — Inference + Export** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/03_inference_and_export.ipynb) |
+| **04 — Deploy** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/04_deploy.ipynb) |
 
 **Steps:**
 
@@ -46,7 +46,7 @@ The fastest way to get started. No local install required — just a Google acco
 If you prefer running locally (or need Docker for Module 04):
 
 ```bash
-git clone https://github.com/PacktPublishing/pytorch-production-workshop.git
+git clone https://github.com/arj7192/pytorch-production-workshop.git
 cd pytorch-production-workshop
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
