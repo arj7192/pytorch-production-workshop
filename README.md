@@ -19,9 +19,31 @@ Using a **GPT-style language model** (~8M parameters) trained on WikiText-2 as t
 
 ---
 
-## Quick Start
+## Quick Start (Google Colab — recommended)
 
-### 1. Clone and install
+The fastest way to get started. No local install required — just a Google account and a browser.
+
+| Module | Colab link |
+|--------|-----------|
+| **01 — Model + Training** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/01_model_and_training.ipynb) |
+| **02 — Speedups + Stability** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/02_training_speedups.ipynb) |
+| **03 — Inference + Export** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/03_inference_and_export.ipynb) |
+| **04 — Deploy** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PacktPublishing/pytorch-production-workshop/blob/main/notebooks/04_deploy.ipynb) |
+
+**Steps:**
+
+1. Click a Colab link above
+2. In Colab, go to **Runtime → Change runtime type → T4 GPU**
+3. Run the first cell — it clones the repo and installs dependencies automatically
+4. Run the remaining cells in order
+
+> **Tip:** Colab gives you a free NVIDIA T4 GPU. The training speedup and optimization demos (AMP, `torch.compile`, profiler) show real gains on GPU.
+
+---
+
+## Alternative: Local Setup
+
+If you prefer running locally (or need Docker for Module 04):
 
 ```bash
 git clone https://github.com/PacktPublishing/pytorch-production-workshop.git
@@ -29,39 +51,19 @@ cd pytorch-production-workshop
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+python setup_check.py        # verify everything is installed
+jupyter lab notebooks/       # open the first notebook
 ```
 
-> **Note:** The install downloads PyTorch (~2 GB). Allow 5-10 min on a typical connection.
-
-### 2. Verify your setup
-
-```bash
-python setup_check.py
-```
-
-You should see `[OK]` next to every core library. The script also detects your GPU/MPS availability.
-
-### 3. Open the first notebook
-
-```bash
-jupyter lab notebooks/
-```
-
-Start with `01_model_and_training.ipynb` and follow the modules in order.
-
-> **Note:** The first notebook downloads the WikiText-2 dataset (~4 MB) and trains a BPE tokenizer on first run. Internet access is required for this step.
+> **Note:** `pip install` downloads PyTorch (~2 GB). An NVIDIA GPU is recommended but not required — CPU works, just slower.
 
 ---
 
 ## Prerequisites
 
-- **Python 3.10+** (3.11 recommended)
-- ~4 GB free disk space
-- Internet access (for dataset download and pip install)
-- **Docker** (for Module 04 — optional, install from [docker.com](https://docs.docker.com/get-docker/))
-- **`gcloud` CLI** (optional, only for Cloud Run deployment)
-
-CPU is fine for the entire workshop. GPU or Apple MPS will speed up training but is not required.
+- A **Google account** (for Colab) — or **Python 3.10+** if running locally
+- **Docker** (for Module 04 containerization — optional, install from [docker.com](https://docs.docker.com/get-docker/))
+- **`gcloud` CLI** (optional, only needed to deploy to Cloud Run)
 
 No advanced PyTorch experience needed — if you've trained a model before, you're ready.
 
