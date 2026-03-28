@@ -15,13 +15,16 @@ def check(name: str, import_name: str | None = None, min_version: str | None = N
         version = getattr(mod, "__version__", "unknown")
         status = "OK"
         if min_version and version != "unknown":
-            from packaging.version import Version
-            if Version(version) < Version(min_version):
-                status = f"WARN (need >={min_version})"
+            try:
+                from packaging.version import Version
+                if Version(version) < Version(min_version):
+                    status = f"WARN (need >={min_version})"
+            except ImportError:
+                pass
         print(f"  [{status}] {name} {version}")
         return True
     except ImportError:
-        print(f"  [MISSING] {name} — install with: pip install {name}")
+        print(f"  [MISSING] {name} — run: pip install -r requirements.txt")
         return False
 
 

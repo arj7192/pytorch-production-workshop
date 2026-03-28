@@ -26,9 +26,12 @@ Using a **GPT-style language model** (~8M parameters) trained on WikiText-2 as t
 ```bash
 git clone https://github.com/PacktPublishing/pytorch-production-workshop.git
 cd pytorch-production-workshop
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+
+> **Note:** The install downloads PyTorch (~2 GB). Allow 5-10 min on a typical connection.
 
 ### 2. Verify your setup
 
@@ -36,23 +39,31 @@ pip install -r requirements.txt
 python setup_check.py
 ```
 
+You should see `[OK]` next to every core library. The script also detects your GPU/MPS availability.
+
 ### 3. Open the first notebook
 
 ```bash
 jupyter lab notebooks/
 ```
 
+Start with `01_model_and_training.ipynb` and follow the modules in order.
+
+> **Note:** The first notebook downloads the WikiText-2 dataset (~4 MB) and trains a BPE tokenizer on first run. Internet access is required for this step.
+
 ---
 
 ## Prerequisites
 
-- Python 3.10+
-- PyTorch 2.2+ (CPU is fine for the workshop; GPU recommended for speed)
+- **Python 3.10+** (3.11 recommended)
 - ~4 GB free disk space
-- Docker (for Module 04)
-- `gcloud` CLI (optional, for Cloud Run deployment)
+- Internet access (for dataset download and pip install)
+- **Docker** (for Module 04 — optional, install from [docker.com](https://docs.docker.com/get-docker/))
+- **`gcloud` CLI** (optional, only for Cloud Run deployment)
 
-No advanced PyTorch experience required — if you've trained a model before, you're ready.
+CPU is fine for the entire workshop. GPU or Apple MPS will speed up training but is not required.
+
+No advanced PyTorch experience needed — if you've trained a model before, you're ready.
 
 ---
 
@@ -139,6 +150,19 @@ Quick orientation, repo walkthrough, and what "production-ready" means for this 
 - This complete code repository
 - Reference checklists for training, debugging, and deployment
 - Certificate of completion
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| `pip install` fails on torch | Try `pip install torch --index-url https://download.pytorch.org/whl/cpu` first, then re-run `pip install -r requirements.txt` |
+| `ModuleNotFoundError: No module named 'src'` | Make sure you're running notebooks from the `notebooks/` directory (Jupyter Lab opened from there) |
+| `num_workers > 0` crashes on macOS | This is a known fork-safety issue on macOS — use `num_workers=0` (the default). The notebooks handle this. |
+| `torch.compile` fails | Expected on some platforms (macOS, older GPUs). The notebooks catch this gracefully and continue. |
+| ONNX export warnings | Warnings about deprecated operators are harmless — check that the verification step prints `PASS`. |
+| Docker build fails with missing files | Run Notebook 04 Cell 5 first to copy model artifacts into `serve/`, then build. |
 
 ---
 

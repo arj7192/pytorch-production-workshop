@@ -1,6 +1,7 @@
 # Core
 torch>=2.2.0
 torchvision>=0.17.0
+numpy>=1.24.0
 
 # Data
 datasets>=2.16.0
@@ -20,9 +21,9 @@ onnx>=1.15.0
 onnxruntime>=1.17.0
 
 # Notebooks
-jupyter>=1.0.0
 jupyterlab>=4.0.0
 ipywidgets>=8.0.0
 
-# Dev
-numpy>=1.24.0
+# Dev / Setup
+packaging>=23.0
+pytest>=8.0.0
