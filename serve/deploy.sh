@@ -35,12 +35,14 @@ fi
 
 SERVICE_NAME="pytorch-workshop-api"
 IMAGE="gcr.io/${GCP_PROJECT}/${SERVICE_NAME}"
+GCS_BUCKET="gs://${GCP_PROJECT}-workshop-artifacts"
 
 echo "=== Deploying ${SERVICE_NAME} ==="
 echo "Project: ${GCP_PROJECT}"
 echo "Region:  ${REGION}"
 echo "GPU:     ${USE_GPU}"
 echo "Image:   ${IMAGE}"
+echo "Bucket:  ${GCS_BUCKET}"
 echo ""
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -54,36 +56,25 @@ docker push "${IMAGE}"
 echo ""
 echo "2. Deploying to Cloud Run..."
 
+COMMON_FLAGS=(
+    --project "${GCP_PROJECT}"
+    --image "${IMAGE}"
+    --platform managed
+    --region "${REGION}"
+    --port 8000
+    --set-env-vars "GCS_BUCKET=${GCS_BUCKET}"
+    --timeout 60
+    --concurrency 10
+    --min-instances 0
+    --allow-unauthenticated
+)
+
 if ${USE_GPU}; then
-    gcloud run deploy "${SERVICE_NAME}" \
-        --project "${GCP_PROJECT}" \
-        --image "${IMAGE}" \
-        --platform managed \
-        --region "${REGION}" \
-        --port 8000 \
-        --memory 4Gi \
-        --cpu 4 \
-        --gpu 1 \
-        --gpu-type nvidia-l4 \
-        --timeout 60 \
-        --concurrency 10 \
-        --min-instances 0 \
-        --max-instances 3 \
-        --allow-unauthenticated
+    gcloud run deploy "${SERVICE_NAME}" "${COMMON_FLAGS[@]}" \
+        --memory 4Gi --cpu 4 --gpu 1 --gpu-type nvidia-l4 --max-instances 3
 else
-    gcloud run deploy "${SERVICE_NAME}" \
-        --project "${GCP_PROJECT}" \
-        --image "${IMAGE}" \
-        --platform managed \
-        --region "${REGION}" \
-        --port 8000 \
-        --memory 2Gi \
-        --cpu 2 \
-        --timeout 60 \
-        --concurrency 10 \
-        --min-instances 0 \
-        --max-instances 5 \
-        --allow-unauthenticated
+    gcloud run deploy "${SERVICE_NAME}" "${COMMON_FLAGS[@]}" \
+        --memory 2Gi --cpu 2 --max-instances 5
 fi
 
 echo ""

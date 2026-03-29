@@ -1,14 +1,16 @@
 # Production Dockerfile for the PyTorch inference API
 #
-# Prerequisites — Notebook 04 copies these automatically:
-#   serve/tokenizer.json
-#   serve/model_checkpoint.pt
+# Model artifacts are NOT baked into the image.
+# Set GCS_BUCKET env var at deploy time and the container downloads them at startup.
 #
 # Build from REPO ROOT (need src/ for model definition):
 #   docker build -f serve/Dockerfile -t pytorch-workshop-api .
 #
-# Run:
-#   docker run -p 8000:8000 pytorch-workshop-api
+# Run locally (with local model files):
+#   docker run -p 8000:8000 -v ./serve:/app/models -e TOKENIZER_PATH=/app/models/tokenizer.json -e CHECKPOINT_PATH=/app/models/model_checkpoint.pt pytorch-workshop-api
+#
+# Run on Cloud Run (pulls from GCS automatically):
+#   Set GCS_BUCKET=gs://your-bucket when deploying
 
 # --- Stage 1: Install Python dependencies ---
 FROM python:3.11-slim AS builder
@@ -29,10 +31,6 @@ COPY --from=builder /install /usr/local
 # Application code
 COPY src/ ./src/
 COPY serve/app.py .
-
-# Model artifacts — produced by the training pipeline
-# app.py gracefully handles missing files (serves with random weights)
-COPY serve/tokenizer.json serve/model_checkpoint.pt ./
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1

@@ -37,6 +37,21 @@ device = None
 model_config = None
 
 
+def _download_from_gcs(bucket_uri: str, blob_name: str, dest: str):
+    """Download a file from GCS if it doesn't exist locally."""
+    if Path(dest).exists():
+        return
+    try:
+        from google.cloud import storage
+        bucket_name = bucket_uri.replace("gs://", "").strip("/")
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        bucket.blob(blob_name).download_to_filename(dest)
+        logger.info(f"Downloaded gs://{bucket_name}/{blob_name} -> {dest}")
+    except Exception as e:
+        logger.warning(f"GCS download failed for {blob_name}: {e}")
+
+
 def load_model():
     """Load model and tokenizer at startup."""
     global model, tokenizer, device, model_config
@@ -49,6 +64,13 @@ def load_model():
         device = torch.device("cpu")
     logger.info(f"Using device: {device}")
 
+    # Pull artifacts from GCS if GCS_BUCKET is set and files are missing
+    gcs_bucket = os.environ.get("GCS_BUCKET")
+    if gcs_bucket:
+        logger.info(f"Checking GCS bucket: {gcs_bucket}")
+        _download_from_gcs(gcs_bucket, "tokenizer.json", "tokenizer.json")
+        _download_from_gcs(gcs_bucket, "model_checkpoint.pt", "model_checkpoint.pt")
+
     # Load tokenizer
     tokenizer_path = os.environ.get("TOKENIZER_PATH", "tokenizer.json")
     if not Path(tokenizer_path).exists():
@@ -59,7 +81,6 @@ def load_model():
     tokenizer = Tokenizer.from_file(tokenizer_path)
     logger.info(f"Tokenizer loaded: vocab_size={tokenizer.get_vocab_size()}")
 
-    # Model config
     model_config = {
         "vocab_size": tokenizer.get_vocab_size(),
         "d_model": int(os.environ.get("D_MODEL", 256)),
@@ -67,7 +88,7 @@ def load_model():
         "d_ff": int(os.environ.get("D_FF", 512)),
         "n_layers": int(os.environ.get("N_LAYERS", 4)),
         "max_seq_len": int(os.environ.get("MAX_SEQ_LEN", 128)),
-        "dropout": 0.0,  # No dropout at inference
+        "dropout": 0.0,
     }
 
     model = build_model(model_config).to(device)
