@@ -5,7 +5,7 @@ Usage:
     python scripts/profile_training.py
 
 Output:
-    logs/profiler/trace.json — open in chrome://tracing
+    logs/profiler/trace.json -  open in chrome://tracing
 """
 
 import torch

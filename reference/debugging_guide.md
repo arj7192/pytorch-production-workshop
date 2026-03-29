@@ -19,7 +19,7 @@ When training goes wrong, use this guide to systematically diagnose and fix the 
 2. **Add gradient clipping**: `torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)`
 3. **Add learning rate warmup**: Start from 0, ramp up over 100-500 steps
 4. **Check data**: `assert not torch.isnan(input).any()`
-5. **Use pre-norm** (LayerNorm before attention, not after) — more numerically stable
+5. **Use pre-norm** (LayerNorm before attention, not after) -  more numerically stable
 6. **Switch to AMP with GradScaler**: Handles float16 underflow automatically
 
 **Detection code**:
@@ -47,7 +47,7 @@ print(f"Gradient norm: {total_norm:.2f}")
 1. **Gradient clipping** (always use this): `clip_grad_norm_(model.parameters(), 1.0)`
 2. **Lower learning rate**
 3. **Use AdamW** instead of SGD (built-in per-parameter scaling)
-4. **Check for long sequences** — attention scales with sequence length squared
+4. **Check for long sequences** -  attention scales with sequence length squared
 
 ---
 

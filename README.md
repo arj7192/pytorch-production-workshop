@@ -2,7 +2,7 @@
 
 A hands-on workshop by **Ashish Ranjan Jha**, author of [Mastering PyTorch](https://www.packtpub.com/product/mastering-pytorch-second-edition/9781801074308).
 
-Train a small transformer model from scratch, optimize it for production throughput, and deploy it as a scalable inference API — all in 3 hours.
+Train a small transformer model from scratch, optimize it for production throughput, and deploy it as a scalable inference API - all in 3 hours.
 
 ---
 
@@ -12,29 +12,29 @@ Using a **GPT-style language model** (~8M parameters) trained on WikiText-2 as t
 
 | Module | What you'll do |
 |--------|---------------|
-| **01 — Model + Training** | Build a modern transformer, structure a reproducible training pipeline with eval, checkpointing, and logging |
-| **02 — Speedups + Stability** | Add mixed precision (AMP), optimize DataLoaders, profile bottlenecks, and fix NaNs/OOMs |
-| **03 — Inference + Export** | Batch inference, dynamic quantization, TorchScript & ONNX export, benchmark latency |
-| **04 — Deploy** | Wrap in FastAPI, containerize with Docker, deploy to Google Cloud Run (via Cloud Shell) |
+| **01 - Model + Training** | Build a modern transformer, structure a reproducible training pipeline with eval, checkpointing, and logging |
+| **02 - Speedups + Stability** | Add mixed precision (AMP), optimize DataLoaders, profile bottlenecks, and fix NaNs/OOMs |
+| **03 - Inference + Export** | Batch inference, dynamic quantization, TorchScript & ONNX export, benchmark latency |
+| **04 - Deploy** | Wrap in FastAPI, containerize with Docker, deploy to Google Cloud Run (via Cloud Shell) |
 
 ---
 
-## Quick Start (Google Colab — recommended)
+## Quick Start (Google Colab - recommended)
 
-The fastest way to get started. No local install required — just a Google account and a browser.
+The fastest way to get started. No local install required - just a Google account and a browser.
 
 | Module | Colab link |
 |--------|-----------|
-| **01 — Model + Training** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/01_model_and_training.ipynb) |
-| **02 — Speedups + Stability** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/02_training_speedups.ipynb) |
-| **03 — Inference + Export** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/03_inference_and_export.ipynb) |
-| **04 — Deploy** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/04_deploy.ipynb) |
+| **01 - Model + Training** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/01_model_and_training.ipynb) |
+| **02 - Speedups + Stability** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/02_training_speedups.ipynb) |
+| **03 - Inference + Export** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/03_inference_and_export.ipynb) |
+| **04 - Deploy** | [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/arj7192/pytorch-production-workshop/blob/main/notebooks/04_deploy.ipynb) |
 
 **Steps:**
 
 1. Click a Colab link above
 2. In Colab, go to **Runtime → Change runtime type → T4 GPU**
-3. Run the first cell — it clones the repo and installs dependencies automatically
+3. Run the first cell - it clones the repo and installs dependencies automatically
 4. Run the remaining cells in order
 
 > **Tip:** Colab gives you a free NVIDIA T4 GPU. The training speedup and optimization demos (AMP, `torch.compile`, profiler) show real gains on GPU.
@@ -55,17 +55,17 @@ python setup_check.py        # verify everything is installed
 jupyter lab notebooks/       # open the first notebook
 ```
 
-> **Note:** `pip install` downloads PyTorch (~2 GB). An NVIDIA GPU is recommended but not required — CPU works, just slower.
+> **Note:** `pip install` downloads PyTorch (~2 GB). An NVIDIA GPU is recommended but not required - CPU works, just slower.
 
 ---
 
 ## Prerequisites
 
-- A **Google account** (for Colab and Cloud Shell) — or **Python 3.10+** if running locally
-- **Docker** (for local Module 04 only — Cloud Shell has it pre-installed)
-- **GCP project with billing** (for Cloud Run deployment in Module 04 — attendees without billing can follow the instructor demo)
+- A **Google account** (for Colab and Cloud Shell) - or **Python 3.10+** if running locally
+- **Docker** (for local Module 04 only - Cloud Shell has it pre-installed)
+- **GCP project with billing** (for Cloud Run deployment in Module 04 - attendees without billing can follow the instructor demo)
 
-No advanced PyTorch experience needed — if you've trained a model before, you're ready.
+No advanced PyTorch experience needed - if you've trained a model before, you're ready.
 
 ---
 
@@ -161,19 +161,19 @@ Quick orientation, repo walkthrough, and what "production-ready" means for this 
 |---------|-----|
 | `pip install` fails on torch | Try `pip install torch --index-url https://download.pytorch.org/whl/cpu` first, then re-run `pip install -r requirements.txt` |
 | `ModuleNotFoundError: No module named 'src'` | Make sure you're running notebooks from the `notebooks/` directory (Jupyter Lab opened from there) |
-| `num_workers > 0` crashes on macOS | This is a known fork-safety issue on macOS — use `num_workers=0` (the default). The notebooks handle this. |
+| `num_workers > 0` crashes on macOS | This is a known fork-safety issue on macOS - use `num_workers=0` (the default). The notebooks handle this. |
 | `torch.compile` fails | Expected on some platforms (macOS, older GPUs). The notebooks catch this gracefully and continue. |
-| ONNX export warnings | Warnings about deprecated operators are harmless — check that the verification step prints `PASS`. |
-| Docker build fails with missing files | Run Notebook 04 Cell 5 first to copy model artifacts into `serve/`, then build. |
+| ONNX export warnings | Warnings about deprecated operators are harmless - check that the verification step prints `PASS`. |
+| Docker build fails | Make sure you're building from the repo root: `docker build -f serve/Dockerfile -t pytorch-workshop-api .` |
 
 ---
 
 ## About the Instructor
 
-**Ashish Ranjan Jha** is a machine learning engineer and author of *Mastering PyTorch* (Packt, 2nd Edition). He has built ML systems at Oracle, Sony, Revolut, and Tractable — from sensor-based transport prediction to insurance fraud detection. He focuses on bridging the gap between ML experimentation and production engineering.
+**Ashish Ranjan Jha** is Co-Founder and CEO at [Nativ](https://usenativ.com), a localization platform helping businesses unlock new markets. He previously led ML teams at Revolut (fraud detection, KYC) and XYZ Reality (computer vision for construction), and worked as a data scientist at Tractable and Sentiance. He is the author of three books: [Mastering PyTorch](https://www.packtpub.com/product/mastering-pytorch-second-edition/9781801074308) (Packt, 2 editions), [Fight Fraud with Machine Learning](https://www.manning.com/books/fight-fraud-with-machine-learning) (Manning), and The Supervised Learning Workshop (Packt). He holds a Master's from EPFL and is a UK Exceptional Talent visa holder.
 
 ---
 
 ## License
 
-MIT — use this code however you like.
+MIT - use this code however you like.

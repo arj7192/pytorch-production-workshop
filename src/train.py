@@ -35,7 +35,7 @@ def get_cosine_schedule_with_warmup(
     warmup_steps: int,
     total_steps: int,
 ) -> LambdaLR:
-    """Cosine decay with linear warmup — the standard production schedule."""
+    """Cosine decay with linear warmup -  the standard production schedule."""
 
     def lr_lambda(step: int) -> float:
         if step < warmup_steps:
@@ -80,7 +80,7 @@ def train_one_epoch(
             loss = output["loss"]
 
         if nan_detector.check_loss(loss, global_step):
-            logger.warning(f"NaN/Inf loss at step {global_step} — skipping batch")
+            logger.warning(f"NaN/Inf loss at step {global_step} -  skipping batch")
             optimizer.zero_grad()
             global_step += 1
             continue
@@ -163,7 +163,7 @@ def main():
     ckpt_manager = CheckpointManager(config.checkpoint_dir, config.keep_last_n)
 
     logger.info("=" * 60)
-    logger.info("PRODUCTION TRAINING — Transformer Language Model")
+    logger.info("PRODUCTION TRAINING -  Transformer Language Model")
     logger.info("=" * 60)
     logger.info(f"Device: {device}")
     logger.info(f"Config: {config.to_dict()}")

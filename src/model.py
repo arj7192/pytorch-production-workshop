@@ -2,7 +2,7 @@
 Small GPT-style transformer for language modeling.
 
 Architecture: decoder-only transformer with causal masking.
-~8M parameters at default config — small enough to train on CPU
+~8M parameters at default config -  small enough to train on CPU
 during a workshop, large enough to demonstrate real patterns.
 """
 

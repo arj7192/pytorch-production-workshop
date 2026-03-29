@@ -105,7 +105,7 @@ def load_model():
         model.load_state_dict(checkpoint["model_state_dict"])
         logger.info(f"Checkpoint loaded: {checkpoint_path}")
     else:
-        logger.warning("No checkpoint found — serving with random weights")
+        logger.warning("No checkpoint found -  serving with random weights")
 
     param_count = sum(p.numel() for p in model.parameters())
     logger.info(f"Model ready: {param_count:,} parameters")
@@ -120,7 +120,7 @@ async def lifespan(app: FastAPI):
 
 # --- FastAPI App ---
 app = FastAPI(
-    title="PyTorch Workshop — Inference API",
+    title="PyTorch Workshop -  Inference API",
     description="Text generation with a small transformer language model",
     version="1.0.0",
     lifespan=lifespan,

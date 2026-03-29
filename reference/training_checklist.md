@@ -9,7 +9,7 @@ Use this before every training run. Skip items at your own risk.
 - [ ] **Reproducibility**: Set all seeds (`random`, `numpy`, `torch`, `cuda`)
 - [ ] **Config file**: All hyperparameters in a YAML/JSON config (not hardcoded)
 - [ ] **Data splits**: Train/val/test are properly separated (no leakage)
-- [ ] **Data validation**: Spot-check samples — are they sane?
+- [ ] **Data validation**: Spot-check samples -  are they sane?
 - [ ] **Baseline**: Know what "random" loss should be (e.g., `ln(vocab_size)` for LM)
 - [ ] **Sanity check**: Can you overfit a single batch? If not, fix bugs first
 
@@ -43,7 +43,7 @@ Use this before every training run. Skip items at your own risk.
 
 - [ ] **Final evaluation**: Run on held-out test set
 - [ ] **Model size**: Check parameter count and disk size
-- [ ] **Qualitative check**: Generate/predict samples — do they make sense?
+- [ ] **Qualitative check**: Generate/predict samples -  do they make sense?
 - [ ] **Export metrics**: Save training curves for comparison
 - [ ] **Reproducibility test**: Same config + seed → same results?
 

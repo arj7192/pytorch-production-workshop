@@ -1,4 +1,4 @@
-# Fast debug config — use this to verify everything works
+# Fast debug config -  use this to verify everything works
 # Trains for 1 epoch with small batch size, logs every 10 steps
 # Usage: python -m src.train --config configs/fast_debug.yaml
 

@@ -6,7 +6,7 @@ Use this before deploying a model to production.
 
 ## Model Readiness
 
-- [ ] **Model in eval mode**: `model.eval()` — disables dropout, batchnorm uses running stats
+- [ ] **Model in eval mode**: `model.eval()` -  disables dropout, batchnorm uses running stats
 - [ ] **No grad context**: All inference wrapped in `torch.no_grad()` or `torch.inference_mode()`
 - [ ] **Deterministic output**: Same input → same output (set seeds, disable dropout)
 - [ ] **Input validation**: Handle malformed inputs gracefully (empty strings, too-long sequences)
@@ -43,9 +43,7 @@ Use this before deploying a model to production.
 
 - [ ] **Resource limits**: CPU and memory limits set appropriately
 - [ ] **Scaling**: Min/max instances configured
-- [ ] **Concurrency**: Set based on model's throughput capacity
-  - CPU inference: concurrency = 10-50
-  - GPU inference: concurrency = 1-4
+- [ ] **Concurrency**: Set based on model's throughput capacity - CPU inference: concurrency = 10-50 - GPU inference: concurrency = 1-4
 - [ ] **Startup probe**: Allow time for model loading
 - [ ] **Region**: Deploy close to users
 

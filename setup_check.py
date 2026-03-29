@@ -24,7 +24,7 @@ def check(name: str, import_name: str | None = None, min_version: str | None = N
         print(f"  [{status}] {name} {version}")
         return True
     except ImportError:
-        print(f"  [MISSING] {name} — run: pip install -r requirements.txt")
+        print(f"  [MISSING] {name} -  run: pip install -r requirements.txt")
         return False
 
 
@@ -72,13 +72,13 @@ def main():
     if shutil.which("docker"):
         print("  [OK] Docker found")
     else:
-        print("  [INFO] Docker not found — needed for Module 4 (containerization)")
+        print("  [INFO] Docker not found -  needed for Module 4 (containerization)")
 
     print("\n--- gcloud CLI (optional, for Cloud Run deployment) ---")
     if shutil.which("gcloud"):
         print("  [OK] gcloud CLI found")
     else:
-        print("  [INFO] gcloud CLI not found — needed for Cloud Run deployment")
+        print("  [INFO] gcloud CLI not found -  needed for Cloud Run deployment")
 
     print("\n" + "=" * 50)
     if all_ok:
