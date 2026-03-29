@@ -9,9 +9,9 @@
 #   --region      GCP region (default: us-central1)
 #
 # Prerequisites:
+#   - Docker installed
 #   - gcloud CLI installed and authenticated
 #   - Cloud Run API enabled: gcloud services enable run.googleapis.com
-#   - Cloud Build API enabled: gcloud services enable cloudbuild.googleapis.com
 
 set -euo pipefail
 
@@ -46,13 +46,10 @@ echo ""
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${REPO_ROOT}"
 
-echo "1. Building container image..."
-gcloud builds submit \
-    --project "${GCP_PROJECT}" \
-    --tag "${IMAGE}" \
-    --timeout 900 \
-    -f serve/Dockerfile \
-    .
+echo "1. Building and pushing container image..."
+docker build -f serve/Dockerfile -t "${IMAGE}" .
+gcloud auth configure-docker --quiet 2>/dev/null
+docker push "${IMAGE}"
 
 echo ""
 echo "2. Deploying to Cloud Run..."
