@@ -41,7 +41,12 @@ def load_model():
     """Load model and tokenizer at startup."""
     global model, tokenizer, device, model_config
 
-    device = torch.device("cpu")  # CPU for Cloud Run (no GPU)
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
     logger.info(f"Using device: {device}")
 
     # Load tokenizer

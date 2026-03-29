@@ -15,7 +15,7 @@ Using a **GPT-style language model** (~8M parameters) trained on WikiText-2 as t
 | **01 — Model + Training** | Build a modern transformer, structure a reproducible training pipeline with eval, checkpointing, and logging |
 | **02 — Speedups + Stability** | Add mixed precision (AMP), optimize DataLoaders, profile bottlenecks, and fix NaNs/OOMs |
 | **03 — Inference + Export** | Batch inference, dynamic quantization, TorchScript & ONNX export, benchmark latency |
-| **04 — Deploy** | Wrap in FastAPI, containerize with Docker, deploy to Google Cloud Run |
+| **04 — Deploy** | Wrap in FastAPI, containerize with Docker, deploy to Google Cloud Run (via Cloud Shell) |
 
 ---
 
@@ -61,9 +61,9 @@ jupyter lab notebooks/       # open the first notebook
 
 ## Prerequisites
 
-- A **Google account** (for Colab) — or **Python 3.10+** if running locally
-- **Docker** (for Module 04 containerization — optional, install from [docker.com](https://docs.docker.com/get-docker/))
-- **`gcloud` CLI** (optional, only needed to deploy to Cloud Run)
+- A **Google account** (for Colab and Cloud Shell) — or **Python 3.10+** if running locally
+- **Docker** (for local Module 04 only — Cloud Shell has it pre-installed)
+- **GCP project with billing** (for Cloud Run deployment in Module 04 — attendees without billing can follow the instructor demo)
 
 No advanced PyTorch experience needed — if you've trained a model before, you're ready.
 
@@ -136,9 +136,9 @@ Quick orientation, repo walkthrough, and what "production-ready" means for this 
 - Benchmark: eager vs compiled vs quantized vs ONNX
 
 ### Module 4: Deploy to Production (30 min)
-- Wrap the model in a FastAPI inference service
-- Containerize with Docker (multi-stage build, non-root user)
-- Deploy to Google Cloud Run with `gcloud`
+- Wrap the model in a FastAPI inference service (Colab)
+- Set up GCP project and upload checkpoint to Cloud Storage (Colab)
+- Switch to **Google Cloud Shell** for Docker build + Cloud Run deploy
 - Health checks, graceful startup, and what to monitor
 
 ### Wrap-up + Q&A (10 min)
