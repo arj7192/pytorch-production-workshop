@@ -80,6 +80,7 @@ def export_onnx(
             "input_ids": {0: "batch_size", 1: "seq_len"},
             "logits": {0: "batch_size", 1: "seq_len"},
         },
+        dynamo=False,
     )
 
     file_size_mb = path.stat().st_size / (1024 * 1024)
