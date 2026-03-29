@@ -98,9 +98,12 @@ def verify_torchscript(
     loaded = torch.jit.load(scripted_path)
     loaded.eval()
 
+    def _get_logits(output):
+        return output["logits"] if isinstance(output, dict) else output
+
     with torch.no_grad():
-        orig_out = original_model(sample_input)["logits"]
-        scripted_out = loaded(sample_input)["logits"]
+        orig_out = _get_logits(original_model(sample_input))
+        scripted_out = _get_logits(loaded(sample_input))
 
     match = torch.allclose(orig_out, scripted_out, atol=atol)
     max_diff = (orig_out - scripted_out).abs().max().item()
@@ -120,7 +123,8 @@ def verify_onnx(
 
     original_model.eval()
     with torch.no_grad():
-        orig_out = original_model(sample_input)["logits"].numpy()
+        output = original_model(sample_input)
+        orig_out = (output["logits"] if isinstance(output, dict) else output).numpy()
 
     session = ort.InferenceSession(onnx_path)
     onnx_out = session.run(None, {"input_ids": sample_input.numpy()})[0]
