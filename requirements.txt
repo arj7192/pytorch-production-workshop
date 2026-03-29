@@ -18,6 +18,7 @@ requests>=2.31.0
 
 # Export & Inference
 onnx>=1.15.0
+onnxscript>=0.1.0
 onnxruntime>=1.17.0
 
 # Notebooks
